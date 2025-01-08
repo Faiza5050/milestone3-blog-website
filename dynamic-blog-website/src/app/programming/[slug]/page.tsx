@@ -2,6 +2,7 @@ import { Programming } from "@/sanity/lib/interface";
 import { client } from "@/sanity/lib/sanity";
 import { PortableText } from "@portabletext/react";
 import { urlFor } from "@/sanity/lib/sanityImageUrl";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -58,19 +59,13 @@ async function getRecentPosts(postType: "programming") {
   }
 }
 
-type PageProps = {
-  params: {
-    slug: string;
-  };
+type Props = {
+  params: Promise<{ slug: string }>;
 };
 
-export default async function ProgrammingSlugPage({
-  params,
-}: PageProps) {
-  
-  const { slug } = params;
-  
-  console.log("Slug in params:", slug);
+export default async function ProgrammingSlugPage({ params }: Props) {
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;  
 
   const data = await getData(slug);
 

@@ -1,8 +1,16 @@
 import React from "react";
-import { Mentalhealth } from "@/sanity/lib/interface";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from "next/image";
+
+interface Mentalhealth {
+  _id: string;
+  title: string;
+  overview: string;
+  slug: { current: string };
+  _createdAt: string;
+  mainImage: string;
+}
 
 async function getData() {
   const query = `*[_type == "mentalhealth"]{
